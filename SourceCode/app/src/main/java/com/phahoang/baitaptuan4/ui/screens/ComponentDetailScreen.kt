@@ -3,6 +3,8 @@ package com.phahoang.baitaptuan4.ui.screens
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -44,7 +46,10 @@ fun ComponentDetailScreen(component: UiComponent, onBack: () -> Unit) {
             navigationIcon = { TextButton(onClick = onBack) { Text("‹", fontSize = 32.sp, color = Color(0xFF1389D7)) } }
         )
     }) { padding ->
-        Column(Modifier.fillMaxSize().padding(padding).padding(22.dp), horizontalAlignment = Alignment.CenterHorizontally) {
+        Column(Modifier
+            .fillMaxSize()
+            .padding(padding)
+            .padding(22.dp), horizontalAlignment = Alignment.CenterHorizontally) {
             Text(component.description, color = Color(0xFF667085), modifier = Modifier.padding(bottom = 28.dp))
             when (component.name) {
                 "Text" -> TextDemo()
@@ -297,6 +302,31 @@ private fun ColumnDemo() {
         LayoutBlock("Item 3")
     }
 }
+
+@Composable
+private fun LazyColumnDemo() {
+    Text("LazyColumn layout", fontSize = 20.sp, fontWeight = FontWeight.Bold)
+    Text("Các phần tử được xuất hiện và sắp xếp theo khung column",
+        color = Color(0xFF667085),
+        modifier = Modifier.padding(top = 6.dp, bottom = 16.dp))
+    LazyColumn(
+        modifier = Modifier.fillMaxWidth(),
+        state = rememberLazyListState(),
+        contentPadding = PaddingValues(16.dp),
+        verticalArrangement = Arrangement.spacedBy(10.dp)
+    ) {
+        item{
+            LayoutBlock("Item 1")
+        }
+        item{
+            LayoutBlock("Item 2")
+        }
+        item{
+            LayoutBlock("Item 3")
+        }
+    }
+}
+
 
 @Composable
 private fun RowDemo() {
